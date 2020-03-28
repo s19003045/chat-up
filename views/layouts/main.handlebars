@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chat-app-back-end</title>
+
+  {{!-- import boostrap --}}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {{!-- import local css --}}
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+  {{!-- navbar --}}
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">Chat up</a>
+  </nav>
+
+  {{!-- partial template --}}
+  <div class="container">
+    {{{body}}}
+  </div>
+
+
+  <!-- 向 cdn 取得 socket.io.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <!-- 向 server 取得 socket.io.js -->
+  {{!-- <script src="/socket.io/socket.io.js"></script> --}}
+
+  <!-- import jQuery -->
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <!-- import local js -->
+  <script src="./js/websocket.js"></script>
+
+</body>
+
+</html>
