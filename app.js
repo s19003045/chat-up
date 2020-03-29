@@ -54,8 +54,9 @@ io.on('connection', (socket) => {
   socket.on('client chat', function (data) {
     console.log('client message:', data)
 
+    let message = `${data.username}  :  ${data.message}`
     // 發送訊息給所有人
-    io.emit('server read', data);
+    io.emit('server read', message);
   })
 
   socket.on('disconnect', function () {
@@ -70,4 +71,4 @@ server.listen(port, () => {
 
 require("./routes")(app);
 
-// module.exports = app;
+module.exports = app;
