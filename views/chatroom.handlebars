@@ -1,18 +1,25 @@
 <div class="row">
-  <div class="col">
+  <div class="col col-12 col-md-2">
+    <h3 class="mt-2">Channel List</h3>
+    <button class="btn btn-outline-info btn-block my-2">News</button>
+    <button class="btn btn-outline-info btn-block my-2">Sports</button>
+    <button class="btn btn-outline-info btn-block my-2">Alpha Camp</button>
+  </div>
+  <div class="col col-12 col-md-10 mb-5">
     <!-- Button trigger modal -->
     <button type="button" class="my-2 btn btn-primary btn-type-name" data-toggle="modal" data-target="#usernameInput">
       Type your name
     </button>
+
     {{!-- chat message list here --}}
-    <ul id="messages" class="list-group">
+    <ul id="messages" class="list-group py-0">
+      {{!-- li elements here --}}
     </ul>
 
     {{!-- user input here --}}
-    <form action="" class="fixed-bottom mb-3">
-      <input id="message-input" autocomplete="off" /><button>Send</button>
+    <form action="" class="fixed-bottom">
+      <input id="message-input" autocomplete="off" /><button class="btn btn-success">Send</button>
     </form>
-
 
     {{!-- modal : get username--}}
     <!-- Modal -->

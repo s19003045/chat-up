@@ -46,23 +46,8 @@ db.once('open', (err) => {
   console.log('connect to mongoDB successifully !')
 })
 
-// For websocket
-io.on('connection', (socket) => {
-  console.log('a user connected');
-
-  // 事件：使用者傳送訊息
-  socket.on('client chat', function (data) {
-    console.log('client message:', data)
-
-    let message = `${data.username}  :  ${data.message}`
-    // 發送訊息給所有人
-    io.emit('server read', message);
-  })
-
-  socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
-});
+// import socket setting
+require('./socket.js')(io)
 
 // Server listen
 server.listen(port, () => {
