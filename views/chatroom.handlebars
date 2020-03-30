@@ -10,6 +10,7 @@
     <button type="button" class="my-2 btn btn-primary btn-type-name" data-toggle="modal" data-target="#usernameInput">
       Type your name
     </button>
+    <div class="userCountOnline my-3 ">目前在線人數： <span class=""></span></div>
 
     {{!-- chat message list here --}}
     <ul id="messages" class="list-group py-0">
@@ -18,7 +19,8 @@
 
     {{!-- user input here --}}
     <form action="" class="fixed-bottom">
-      <input id="message-input" autocomplete="off" /><button class="btn btn-success">Send</button>
+      <input id="message-input" autocomplete="off" placeholder="type something ........" /><button
+        class="btn btn-success">Send</button>
     </form>
 
     {{!-- modal : get username--}}
