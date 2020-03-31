@@ -87,7 +87,13 @@ $(function () {
   $('form').submit(function (e) {
     e.preventDefault()
     var message = $('#message-input').val()
-    socket.emit('client chat', { username: username, message: message })
+
+    const data = {
+      username: username,
+      message: message,
+      email: 'user1@example.com' ///email 為假資料
+    }
+    socket.emit('client chat', data)
 
     // clear input
     $('#message-input').val('')

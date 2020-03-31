@@ -14,7 +14,7 @@ const MessageSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',  //關聯 users model
     index: true,
-    // required: true,
+    required: true,
   },
 })
 

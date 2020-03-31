@@ -21,10 +21,4 @@ const UserSchema = new Schema({
   },
 })
 
-
-const UserModel = mongoose.model('User', UserSchema)
-
-const test = new UserModel()
-console.log(test._id)
-
-// module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)

@@ -47,7 +47,7 @@ db.once('open', (err) => {
 })
 
 // import socket setting
-require('./socket.js')(io)
+require('./socket/socket.js')(io)
 
 // Server listen
 server.listen(port, () => {
