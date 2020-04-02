@@ -1,0 +1,20 @@
+{
+  "namespaces": [
+    {
+      "name": "Sport",
+      "pathname": ""
+    },
+    {
+      "name": "Music",
+      "pathname": ""
+    },
+    {
+      "name": "Alpha Camp",
+      "pathname": ""
+    },
+    {
+      "name": "Javascript group",
+      "pathname": ""
+    }
+  ]
+}
