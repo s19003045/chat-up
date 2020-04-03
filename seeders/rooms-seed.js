@@ -1,3 +1,4 @@
+// import model
 const Namespace = require('../models/namespace')
 const User = require('../models/user')
 const Room = require('../models/room')
@@ -7,9 +8,11 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/chatup', { useNewUrlParser: true })
 const db = mongoose.connection
 
+// import other libs
 const uuid = require('uuid')
 const uuidv4 = uuid.v4
 
+// import seed file
 const rooms = require('./seedfile/room')
 
 // actions if connect error
@@ -25,13 +28,13 @@ db.once('open', (err) => {
   return User.findOne({ email: 'user1@example.com' }, function (err, resUser) {
     if (err) return console.error(err)
 
-    return Namespace.findOne({ name: 'Alpha Camp' }, function (err, resNsp) {
-
+    return Namespace.find({}, function (err, resNsp) {
+      const resNspId = resNsp.map(item => (item._id))
       const newRooms = rooms.map((item) => ({
         ...item,
         creatorId: resUser._id,
         users: [resUser._id],
-        namespaceId: resNsp._id
+        namespaceId: resNspId[Math.floor(Math.random() * resNsp.length)]
       }))
 
       // // 以 array 寫入 collection

@@ -1,3 +1,4 @@
+// import model
 const Namespace = require('../models/namespace')
 
 // import mongoose and connect to mongoDB
@@ -5,9 +6,11 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/chatup', { useNewUrlParser: true })
 const db = mongoose.connection
 
+// import other libs
 const uuid = require('uuid')
 const uuidv4 = uuid.v4
 
+// import seed file
 const namespaces = require('./seedfile/namespaces').namespaces
 
 // actions if connect error

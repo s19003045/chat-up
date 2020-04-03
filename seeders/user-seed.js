@@ -5,7 +5,10 @@ const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/chatup', { useNewUrlParser: true })
 const db = mongoose.connection
 
-const users = require('./users.json').users
+const users = require('./seedfile/users.json').users
+
+// import packages
+const bcrypt = require('bcryptjs')
 
 // actions if connect error
 db.on('err', (err) => {
@@ -16,9 +19,23 @@ db.on('err', (err) => {
 db.once('open', (err) => {
   if (err) return console.error(err)
   console.log('connect to mongoDB successifully !')
+
+  users.forEach((user, index) => {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(user.password, salt, (err, hash) => {
+        if (err) return console.log(err)
+        const newUser = new User({
+          email: user.email,
+          password: hash,
+          name: user.name
+        })
+        newUser.save((err, userSaved) => {
+          if (err) return console.log(err)
+          console.log('user save to db:', userSaved)
+        })
+      })
+    })
+  })
 })
 
-User.insertMany(users, (err) => {
-  if (err) return console.log(err)
-  console.log('insert to db successifully')
-})
+
