@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
   name: {
     type: String,
-    //name 非必填欄位
+    required: true
   },
   email: {
     type: String,
@@ -15,7 +15,10 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
+  imageUrl: {
+    type: String
+  },
+  created_date: {
     type: Date,
     default: Date.now
   },

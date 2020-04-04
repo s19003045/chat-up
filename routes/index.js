@@ -22,6 +22,10 @@ module.exports = (app, passport) => {
       failureFlash: true
     })
   );
+  // 註冊頁面
+  app.get('/signup', userController.signUpPage)
+  // 使用者註冊
+  app.post('/signup', userController.signUp)
 
   // otherwise
   app.get('*', (req, res) => {

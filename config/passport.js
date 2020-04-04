@@ -21,7 +21,6 @@ passport.use(
       User.findOne({
         email: email
       }, function (err, user) {
-        console.log('user(step1):', user)
         if (err) return console.log(err)
         if (!user) {
           console.log('!user')
