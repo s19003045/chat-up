@@ -84,7 +84,7 @@ $(function () {
   })
 
   // 傳送訊息
-  $('form').submit(function (e) {
+  $('form.message-send').submit(function (e) {
     e.preventDefault()
     var message = $('#message-input').val()
 
