@@ -20,7 +20,8 @@ const passport = require("./config/passport");
 
 // import mongoose and connect to mongoDB
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/chatup', { useNewUrlParser: true })
+const dbURL = process.env.NODE_ENV === "production" ? process.env.MONGODB_URI : 'mongodb://localhost/chatup'
+mongoose.connect(dbURL, { useNewUrlParser: true })
 const db = mongoose.connection
 
 // view engine
