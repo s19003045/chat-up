@@ -27,6 +27,9 @@ module.exports = (app, passport) => {
   // 使用者註冊
   app.post('/signup', userController.signUp)
 
+  // ======== chatController ========
+  // 使用者進入某個 namespace ，取出所有的 rooms
+  app.get('/:namespaceId', chatController.getNamespace)
   // otherwise
   app.get('*', (req, res) => {
     return res.redirect('/')
