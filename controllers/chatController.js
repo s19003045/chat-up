@@ -26,9 +26,30 @@ const chatController = {
         return !nsp.publicForSearch
       })
 
-      return res.render('namespace', { publicNsps, privateNsps })
+      return res.render('namespaces', { publicNsps, privateNsps })
     })
 
+  },
+  // 使用者進入某個 namespace ，取出所有的 rooms
+  getNamespace: (req, res) => {
+    return Namespace.findOne({ uuid: req.params.namespaceId }, function (err, nsp) {
+      if (err) return console.log(err)
+
+      return Room.find({ namespaceId: nsp._id }, function (err, rooms) {
+        if (err) return console.log(err)
+
+        const data = rooms.map((room) => {
+          return {
+            usersCount: room.usersCount,
+            uuid: room.uuid,
+            name: room.name,
+            public: room.public
+          }
+        })
+
+        return res.render('chatroom1', { data })
+      })
+    })
   },
   },
 

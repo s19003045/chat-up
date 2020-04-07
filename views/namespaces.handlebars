@@ -2,7 +2,7 @@
   <div class="col col-12 col-lg-8 mx-auto mb-3">
     <h3 class="my-2">Public Namespace</h3>
     {{#each publicNsps}}
-    <a href="/{{this.uuid}}" class="btn btn-outline-info btn-lg btn-block my-2" role="button"
+    <a href="/namespace/{{this.uuid}}" class="btn btn-outline-info btn-lg btn-block my-2" role="button"
       data-pathname="{{this.pathname}}" data-uuid="{{this.uuid}}">{{this.name}}</a>
     {{/each}}
   </div>
