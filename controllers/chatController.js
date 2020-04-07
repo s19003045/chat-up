@@ -47,7 +47,7 @@ const chatController = {
           }
         })
 
-        return res.render('chatroom1', { data })
+        return res.render('chatroom', { data })
       })
     })
   },
