@@ -6,16 +6,22 @@ const MessageSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
+  created_date: {
     type: Date,
     default: Date.now
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User',  //關聯 users model
+    ref: 'User',  //關聯 User model
     index: true,
     required: true,
   },
+  roomId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Room',  //關聯 Room model
+    index: true,
+    required: true,
+  }
 })
 
 module.exports = mongoose.model('Message', MessageSchema)

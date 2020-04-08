@@ -30,6 +30,9 @@ module.exports = (app, passport) => {
   // ======== chatController ========
   // 使用者進入某個 namespace ，取出所有的 rooms
   app.get('/namespace/:namespaceId', chatController.getNamespace)
+
+  // 使用者進入某個聊天室
+  app.get('/chatroom/:roomId', chatController.getRoom)
   // otherwise
   app.get('*', (req, res) => {
     return res.redirect('/')

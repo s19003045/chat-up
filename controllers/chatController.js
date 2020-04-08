@@ -38,7 +38,7 @@ const chatController = {
       return Room.find({ namespaceId: nsp._id }, function (err, rooms) {
         if (err) return console.log(err)
 
-        const data = rooms.map((room) => {
+        const roomData = rooms.map((room) => {
           return {
             usersCount: room.usersCount,
             uuid: room.uuid,
@@ -46,8 +46,23 @@ const chatController = {
             public: room.public
           }
         })
+        const nspData = {
+          name: nsp.name,
+          pathname: nsp.pathname,
+          uuid: nsp.uuid
+        }
 
-        return res.render('chatroom', { data })
+        return res.render('chatroom', { roomData, nspData })
+      })
+    })
+  },
+  // 使用者進入某個聊天室
+  getRoom: (req, res) => {
+    console.log('roomId:', req.params.roomId)
+    return Room.findOne({ uuid: req.params.roomId }, function (err, room) {
+
+      return Message.find({ roomId: room._id }, function (err, messages) {
+        return res.render('chatroom', { messages })
       })
     })
   },
