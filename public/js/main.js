@@ -39,19 +39,38 @@ $(function () {
   });
 
   // 事件：使用者剛上線時，顯示近10筆訊息
-  socket.on('recent messages', function (data) {
-    // 顯示近10筆訊息
-    data.recentMessages.forEach(d => {
-      // 新增訊息
-      $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${data.username === username ? ' bg-info text-light ' : ' bg-light text-dark '}">
-        <div class="">
-          <img src="${data.username === username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
-          <span class="font-weight-bold">${d.username}</span>  :  ${d.message}
-          <br>
-          <small class="ml-5 mt-1 bg-light text-dark">${d.time}</small>
-        </div>
-      </li>`)
-    })
+  // socket.on('recent messages', function (data) {
+  //   // 顯示近10筆訊息
+  //   data.recentMessages.forEach(d => {
+  //     // 新增訊息
+  //     $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${data.username === username ? ' bg-info text-light ' : ' bg-light text-dark '}">
+  //       <div class="">
+  //         <img src="${data.username === username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
+  //         <span class="font-weight-bold">${d.username}</span>  :  ${d.message}
+  //         <br>
+  //         <small class="ml-5 mt-1 bg-light text-dark">${d.time}</small>
+  //       </div>
+  //     </li>`)
+  //   })
+  // })
+
+  // 事件：進入某個聊天室
+  $('#roomlist-sidebar a').click(function (e) {
+    e.preventDefault()
+    console.log('e.target:', e.target)
+
+    // 取得 room uuid 及 user uuid
+    let roomuuid = $(this).data("uuid")
+    console.log('roomuuid:', roomuuid)
+    const useruuid = $('#roomlist-sidebar').data('useruuid')
+
+    // socket emit
+    socket.emit('into room', { roomuuid: roomuuid, useruuid: useruuid })
+  })
+
+  // 接收該聊天室所有的訊息
+  socket.on('room messages', function (data) {
+    console.log('data:', data)
   })
 
   // 事件：斷連結
@@ -99,6 +118,23 @@ $(function () {
     $('#message-input').val('')
 
     return false
+  })
+
+  // 加入聊天室
+  socket.emit('join room', { room: 'AlphaCamp', user: 'John' })
+
+  // 接收是否成功加入聊天室的訊息
+  socket.on('join message', function (data) {
+    console.log(data)
+  })
+
+
+  // 建立傳訊息模式
+  socket.emit('event name', {
+    namespace: '',
+    room: '',
+    name: '',
+    message: ''
   })
 
 })

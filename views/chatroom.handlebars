@@ -1,5 +1,5 @@
 <div class="row mt-2">
-  <div class="col col-12 col-md-3">
+  <div class="col col-12 col-md-3" id="roomlist-sidebar" data-useruuid="{{user.uuid}}">
     <h3 class="mt-2">{{nspData.name}}</h3>
     <h5 class="mt-2" id="room-list">Room List</h5>
     {{#each roomData}}
@@ -18,9 +18,6 @@
     {{!-- chat message list here --}}
     <ul id="messages" class="list-group py-0">
       {{!-- li elements here --}}
-      {{#each messages}}
-      <h5>{{this}}</h5>
-      {{/each}}
     </ul>
     {{!-- user input here --}}
     <form action="" class="fixed-bottom message-send">

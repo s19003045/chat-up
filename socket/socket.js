@@ -18,7 +18,7 @@ module.exports = (io) => {
     socket.emit('users online', { userCountOnline: userCountOnline })
 
     // 當使用者剛進入聊天室，顯示最近10筆留言
-    socket.emit('recent messages', { recentMessages: recentMessages, userCountOnline: userCountOnline })
+    // socket.emit('recent messages', { recentMessages: recentMessages, userCountOnline: userCountOnline })
 
     // 事件：使用者傳送訊息
     socket.on('client chat', async function (data) {
@@ -26,7 +26,7 @@ module.exports = (io) => {
       data = {
         username: username,
         message: message,
-        email: eamil
+        email: email
       }
       */
 
@@ -45,6 +45,27 @@ module.exports = (io) => {
       recentMessages.push({ username: data.username, message: data.message, time: moment.moment(new Date) })
       // 發送訊息給所有人
       io.emit('server read', data);
+    })
+
+    // 事件：使用者進入某個聊天室
+    socket.on('into room', function (data) {
+      const { roomuuid, useruuid } = data
+      // 取得聊天室的訊息
+      const messages = wsMessage.getMessage({ roomuuid, useruuid })
+
+      console.log('messages:', messages)
+      // 回傳聊天室的訊息給使用者
+      socket.emit('room messages', { messages: messages })
+    })
+
+    // ===========使用者加入某個聊天室==========
+    socket.on('join room', function (data) {
+      socket.join(`${data.room}`).emit('join message', {
+        room: data.room,
+        joinDate: new Date,
+        message: `welcome to room ${data.room}`
+      })
+
     })
 
     socket.on('disconnect', function () {
