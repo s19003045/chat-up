@@ -7,6 +7,10 @@ const db = mongoose.connection
 
 const users = require('./seedfile/users.json').users
 
+// import other libs
+const uuid = require('uuid')
+const uuidv4 = uuid.v4
+
 // import packages
 const bcrypt = require('bcryptjs')
 
@@ -27,7 +31,8 @@ db.once('open', (err) => {
         const newUser = new User({
           email: user.email,
           password: hash,
-          name: user.name
+          name: user.name,
+          uuid: uuidv4()
         })
         newUser.save((err, userSaved) => {
           if (err) return console.log(err)

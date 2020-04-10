@@ -18,6 +18,10 @@ const UserSchema = new Schema({
   imageUrl: {
     type: String
   },
+  uuid: {
+    type: String,
+    required: true
+  },
   created_date: {
     type: Date,
     default: Date.now

@@ -28,19 +28,26 @@ db.once('open', (err) => {
   return User.findOne({ email: 'user1@example.com' }, function (err, resUser) {
     if (err) return console.error(err)
 
-    return Namespace.find({}, function (err, resNsp) {
-      const resNspId = resNsp.map(item => (item._id))
+    return Namespace.findOne({ name: 'Sport' }, function (err, resNsp) {
       const newRooms = rooms.map((item) => ({
         ...item,
         creatorId: resUser._id,
         users: [resUser._id],
-        namespaceId: resNspId[Math.floor(Math.random() * resNsp.length)]
+        // namespaceId: resNspId[Math.floor(Math.random() * resNsp.length)]
+        namespaceId: resNsp._id
       }))
 
       // // 以 array 寫入 collection
-      return Room.insertMany(newRooms, (err) => {
+      return Room.insertMany(newRooms, (err, rooms) => {
         if (err) return console.log(err)
+
         console.log('insert to db successifully')
+        return Namespace.findOne({ name: 'Sport' }, function (err, resNsp) {
+          rooms.forEach(room => resNsp.rooms.push(room._id))
+
+          resNsp.save()
+          console.log('insert to db successifully')
+        })
       })
 
     })
