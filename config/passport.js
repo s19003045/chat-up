@@ -59,7 +59,15 @@ passport.serializeUser((user, done) => {
 
 // 從 session 中取出 user.id
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
+  User.findById(id, (err, userGet) => {
+    // 將取出 JSON file 轉成物件
+    const user = {
+      _id: userGet._id,
+      email: userGet.email,
+      password: userGet.password,
+      name: userGet.name,
+      uuid: userGet.uuid
+    }
     done(err, user)
   })
 })
