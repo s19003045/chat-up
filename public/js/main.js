@@ -71,6 +71,18 @@ $(function () {
   // 接收該聊天室所有的訊息
   socket.on('room messages', function (data) {
     console.log('data:', data)
+    // 顯示近10筆訊息
+    data.data.messages.forEach(d => {
+      // 新增訊息
+      $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${d.userId.name === username ? ' bg-info text-light ' : ' bg-light text-dark '}">
+        <div class="">
+          <img src="${d.userId.name === username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
+          <span class="font-weight-bold">${d.userId.name}</span>  :  ${d.message}
+          <br>
+          <small class="ml-5 mt-1 bg-light text-dark">${d.created_date}</small>
+        </div>
+      </li>`)
+    })
   })
 
   // 事件：斷連結

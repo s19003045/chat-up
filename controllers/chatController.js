@@ -66,6 +66,10 @@ const chatController = {
       })
     })
   },
+  // 使用者留言
+  postChat: (req, res) => {
+    return res.send('post chat')
   },
+}
 
 module.exports = chatController

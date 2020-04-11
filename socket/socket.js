@@ -50,12 +50,8 @@ module.exports = (io) => {
     // 事件：使用者進入某個聊天室
     socket.on('into room', function (data) {
       const { roomuuid, useruuid } = data
-      // 取得聊天室的訊息
-      const messages = wsMessage.getMessage({ roomuuid, useruuid })
-
-      console.log('messages:', messages)
-      // 回傳聊天室的訊息給使用者
-      socket.emit('room messages', { messages: messages })
+      // 取得聊天室的訊息，並透過 websocket 傳送訊息
+      wsMessage.getMessages(roomuuid, useruuid, socket)
     })
 
     // ===========使用者加入某個聊天室==========
