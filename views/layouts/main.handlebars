@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
         {{#if user}}
-        <li class="nav-item active navbar-username" data-useruuid="{{user.uuid}}">Hi!<span
+        <li class="nav-item active navbar-username" data-useruuid="{{user.uuid}}" data-name="{{user.name}}">Hi!<span
             class="ml-2">{{user.name}}</span></li>
         {{/if}}
       </ul>

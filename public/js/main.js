@@ -1,6 +1,13 @@
 $(function () {
-  // === username input ===
-  var username = 'anonymous'
+  // === config ===
+  const config = {
+    username: 'anonymous',
+    useruuid: '',
+    roomuuid: '',
+    namespaceuuid: '',
+    personsOnline: 0
+  }
+
   $('.btn-username-input-save').click(function (e) {
     e.preventDefault()
     username = $('#username-input').val()
@@ -38,22 +45,6 @@ $(function () {
     $('.userCountOnline span').text(data.userCountOnline)
   });
 
-  // 事件：使用者剛上線時，顯示近10筆訊息
-  // socket.on('recent messages', function (data) {
-  //   // 顯示近10筆訊息
-  //   data.recentMessages.forEach(d => {
-  //     // 新增訊息
-  //     $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${data.username === username ? ' bg-info text-light ' : ' bg-light text-dark '}">
-  //       <div class="">
-  //         <img src="${data.username === username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
-  //         <span class="font-weight-bold">${d.username}</span>  :  ${d.message}
-  //         <br>
-  //         <small class="ml-5 mt-1 bg-light text-dark">${d.time}</small>
-  //       </div>
-  //     </li>`)
-  //   })
-  // })
-
   // 事件：進入某個聊天室
   $('#roomlist-sidebar a').click(function (e) {
     e.preventDefault()
@@ -64,19 +55,19 @@ $(function () {
     console.log('roomuuid:', roomuuid)
     const useruuid = $('#roomlist-sidebar').data('useruuid')
 
-    // socket emit
+    // socket emit：傳送 roomuuid 及 useruuid
     socket.emit('into room', { roomuuid: roomuuid, useruuid: useruuid })
   })
 
-  // 接收該聊天室所有的訊息
+  // 進入聊天室後，接收該聊天室所有的訊息，顯示近10筆訊息
   socket.on('room messages', function (data) {
     console.log('data:', data)
     // 顯示近10筆訊息
     data.data.messages.forEach(d => {
       // 新增訊息
-      $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${d.userId.name === username ? ' bg-info text-light ' : ' bg-light text-dark '}">
+      $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${d.userId.name === config.username ? ' bg-info text-light ' : ' bg-light text-dark '}">
         <div class="">
-          <img src="${d.userId.name === username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
+          <img src="${d.userId.name === config.username ? myAvatarUrl : otherAvatarUrl}" alt="" class="avatar mr-2">
           <span class="font-weight-bold">${d.userId.name}</span>  :  ${d.message}
           <br>
           <small class="ml-5 mt-1 bg-light text-dark">${d.created_date}</small>
@@ -93,8 +84,8 @@ $(function () {
 
   // 事件：server 已讀取使用者傳送的訊息
   socket.on('server read', function (data) {
-    const avatarUrl = data.username === username ? myAvatarUrl : otherAvatarUrl
-    const customCss = data.username === username ? ' bg-info text-light ' : ' bg-light text-dark '
+    const avatarUrl = data.username === config.username ? myAvatarUrl : otherAvatarUrl
+    const customCss = data.username === config.username ? ' bg-info text-light ' : ' bg-light text-dark '
 
     // 新增訊息
     $('#messages').append(`<li class="shadow list-group-item mb-3 py-1 ${customCss}">
@@ -120,7 +111,7 @@ $(function () {
     var message = $('#message-input').val()
 
     const data = {
-      username: username,
+      username: config.username,
       message: message,
       email: 'user1@example.com' ///email 為假資料
     }
