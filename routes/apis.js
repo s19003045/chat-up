@@ -15,8 +15,6 @@ const { authenticated } = require('../config/auth')
 router.get('/', authenticated, chatController.indexPage)
 
 // ======== userController ========
-// 登入頁面
-router.get('/signin', userController.signInPage)
 // 使用者登入
 router.post(
   "/signin",
@@ -26,8 +24,6 @@ router.post(
     failureFlash: true
   })
 );
-// 註冊頁面
-router.get('/signup', userController.signUpPage)
 // 使用者註冊
 router.post('/signup', userController.signUp)
 
@@ -40,11 +36,6 @@ router.get('/chatroom/:roomId', chatController.getRoom)
 
 // 使用者留言
 router.post('/chatroom/:roomId', chatController.postChat)
-
-// otherwise
-router.get('*', (req, res) => {
-  return res.redirect('/')
-})
 
 module.exports = router
 

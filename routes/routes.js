@@ -41,11 +41,6 @@ router.get('/chatroom/:roomId', chatController.getRoom)
 // 使用者留言
 router.post('/chatroom/:roomId', chatController.postChat)
 
-// otherwise
-router.get('*', (req, res) => {
-  return res.redirect('/')
-})
-
 module.exports = router
 
 
