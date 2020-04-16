@@ -1,9 +1,4 @@
-// import model
-const User = require('../models/user')
-const Room = require('../models/room')
-const Namespace = require('../models/namespace')
-const Message = require('../models/message')
-
+// import service
 const chatService = require('../services/chatService')
 
 const chatController = {

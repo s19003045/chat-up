@@ -13,7 +13,6 @@ const userController = {
   // 使用者註冊
   signUp: (req, res) => {
     return userService.signUp(req, res, (data) => {
-      console.log('data:', data)
       if (data.status === 'error') {
         req.flash("error_messages", `${data.message}`);
         return res.redirect("/signup");
