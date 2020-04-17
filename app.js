@@ -23,9 +23,15 @@ const mongoose = require('mongoose')
 const dbURL = process.env.NODE_ENV === "production" ? process.env.MONGODB_URI : 'mongodb://localhost/chatup'
 mongoose.connect(dbURL, { useNewUrlParser: true })
 const db = mongoose.connection
-
+// logger
+const httpLogger = require('./config/httpLogger');
+const logger = require('./config/logger');
 // view engine
 const exphbs = require('express-handlebars')
+
+// use Logger
+app.use(httpLogger);
+
 // use body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
