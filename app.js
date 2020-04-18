@@ -28,7 +28,10 @@ const httpLogger = require('./config/httpLogger');
 const logger = require('./config/logger');
 // view engine
 const exphbs = require('express-handlebars')
+const cors = require('cors')
 
+// cors setting
+app.use(cors())
 // use Logger
 app.use(httpLogger);
 
