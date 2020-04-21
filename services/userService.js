@@ -8,8 +8,65 @@ const passport = require('passport')
 
 // import packages
 const bcrypt = require('bcryptjs')
+// JWT
+const jwt = require('jsonwebtoken')
 
 const userService = {
+  // 使用者登入
+  singIn: (req, res, callback) => {
+    // 檢查 email 及 password
+    if (!req.body.email || !req.body.password) {
+      return callback({
+        status: 'error',
+        message: "required fields didn't exist"
+      })
+    }
+
+    // 檢查 user 是否存在與密碼正確性
+    let username = req.body.email
+    let password = req.body.password
+
+    User.findOne({ email: username })
+      .exec((err, user) => {
+        if (err) return callback({
+          status: 'error',
+          message: "no such user found"
+        })
+        if (!user) {
+          return callback({
+            status: 'error',
+            message: "no such user found"
+          })
+        }
+
+        if (!bcrypt.compareSync(password, user.password)) {
+          return callback({
+            status: 'error',
+            message: "passwords did not match"
+          })
+        }
+
+        //簽發 token
+        var payload = {
+          id: user.id,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        } //Signing a token with 1 day of expiration
+
+        var token = jwt.sign(payload, process.env.JWT_SECRET)
+
+        return callback({
+          status: 'success',
+          message: 'log in successifully',
+          token: token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin
+          }
+        })
+      })
+  },
   // 使用者註冊
   signUp: (req, res, callback) => {
     // confirm password
