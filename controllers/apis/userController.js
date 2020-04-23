@@ -13,6 +13,12 @@ const userController = {
     return userService.signUp(req, res, (data) => {
       return res.json(data)
     })
+  },
+  // 取得使用者個人資料
+  getCurrentUser: (req, res) => {
+    return userService.getCurrentUser(req, res, (data) => {
+      return res.json(data)
+    })
   }
 }
 

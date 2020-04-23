@@ -103,6 +103,18 @@ const userService = {
         }
       });
     }
+  },
+  // 取得使用者資料
+  getCurrentUser: (req, res, callback) => {
+    User.findOne({ uuid: req.user.uuid }, (err, user) => {
+      if (err) return console.log(err)
+
+      return callback({
+        status: 'success',
+        currentUser: user
+      })
+    }
+    )
   }
 }
 

@@ -18,7 +18,8 @@ router.get('/', authenticated, chatController.indexPage)
 router.post('/signin', userController.signIn);
 // 使用者註冊
 router.post('/signup', userController.signUp)
-
+// 使用者資料
+router.get('/get_current_user', authenticated, userController.getCurrentUser)
 // ======== chatController ========
 // 使用者進入某個 namespace ，取出所有的 rooms
 router.get('/namespace/:namespaceId', authenticated, chatController.getNamespace)
