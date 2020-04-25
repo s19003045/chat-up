@@ -10,6 +10,9 @@ const passport = require('passport')
 const bcrypt = require('bcryptjs')
 // JWT
 const jwt = require('jsonwebtoken')
+// import other libs
+const uuid = require('uuid')
+const uuidv4 = uuid.v4
 
 const userService = {
   // 使用者登入
@@ -92,7 +95,8 @@ const userService = {
               req.body.password,
               bcrypt.genSaltSync(10),
               null
-            )
+            ),
+            uuid: uuidv4()
           }, function (err, user) {
             if (err) return console.log(err)
             return callback({
