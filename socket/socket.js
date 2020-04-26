@@ -6,6 +6,7 @@ const messagesReserve = 10 // 留言保留數
 
 const wsMessage = require('./message')
 const wsUser = require('./user')
+const wsRoom = require('./room')
 
 module.exports = (io) => {
   // For websocket
@@ -26,14 +27,17 @@ module.exports = (io) => {
       data = {
         username: username,
         message: message,
-        email: email
+        email: email,
+        roomuuid: roomuuid
       }
       */
 
       // 從資料庫中尋找該 user 之資料
       const getUserResult = await wsUser.getUser(data.email)
+      // 從資料庫中尋找該 room 之資料
+      const getRoomResult = await wsRoom.getRoom(data.roomuuid)
       // 儲存至 mongodb
-      wsMessage.postMessage(data, getUserResult)
+      wsMessage.postMessage(data, getUserResult, getRoomResult)
 
       // 接收訊息時間
       data.time = moment.moment(new Date)
